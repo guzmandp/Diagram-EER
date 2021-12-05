@@ -1,0 +1,140 @@
+CREATE TABLE IF NOT EXISTS usuario (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+  	sobreNome TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+  	telefono TEXT NOT NULL,
+    genero TEXT NOT NULL,
+  	uriFoto TEXT NOT NULL,  
+  	data_criacao DATETIME NOT NULL DEFAULT (datetime('now','localtime'))
+);
+
+CREATE TABLE IF NOT EXISTS postagem (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+  	id_usuario INTEGER REFERENCES usuario(id),	
+  	titulo TEXT NOT NULL,
+  	descripcao TEXT NOT NULL,
+    data_criacao DATETIME NOT NULL DEFAULT (datetime('now','localtime'))
+);
+
+CREATE TABLE IF NOT EXISTS historia (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+  	id_usuario INTEGER REFERENCES usuario(id),	
+  	descripcao TEXT NOT NULL,
+  	uriFoto TEXT NOT NULL,  
+    data_criacao DATETIME NOT NULL DEFAULT (datetime('now','localtime'))
+);
+
+
+CREATE TABLE IF NOT EXISTS foto (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+  	id_usuario INTEGER REFERENCES usuario(id),
+  	id_postagem INTEGER REFERENCES postagem(id),
+  	id_album INTEGER REFERENCES album(id),
+  	uriFoto TEXT NOT NULL,  
+    data_criacao DATETIME NOT NULL DEFAULT (datetime('now','localtime'))
+);
+
+CREATE TABLE IF NOT EXISTS album (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+  	id_foto INTEGER REFERENCES foto(id),
+  	titulo TEXT NOT NULL,  
+    data_criacao DATETIME NOT NULL DEFAULT (datetime('now','localtime'))   
+);
+
+___________________________________________________________________________________________________________________________________________________________
+
+INSERT INTO usuario (nome, sobrenome, email, telefono, genero, uriFoto)
+VALUES 
+	('Alejandro', 'Centeno', 'coreo1@gmail.com','20806024941', 'masculino', 'http://mifoto.com'),
+	('Andrea', 'Montoya','coreo2@gmail.com', '92610698124', 'femenino', 'http://mifoto54.com'),
+	('Danilson', 'Nunes Dos Reis','coreo3@gmail.com', '56010395739', 'masculino', 'http://mifotofeia3.com'),
+	('Edwin Alexander', 'Sanchez Delgado','sanchez@gmail.com', '35132395197', 'masculino', 'http://mifotofqwert.com' ),
+	('Elluz', 'Rodriguez', 'Elluz@gmail.com', '98565489221', 'femenino', 'http://mifotofeia3765.com'),
+	('Francoise', 'luzolo Valentine', 'francoise@gmail.com', '84940515874', 'femenino', 'http://mifotofeia3765.com'),
+	('Genesys', 'Rondon', 'Genesys@gmail.com', '25729819911', 'femenino', 'http://mifotogenesys.com'),
+	('Isis', 'Parra', 'isisparra@gmail.com', '08313084976', 'masculino', 'http://mifotofeia35.com'),
+	('Jose', 'Alejandro', 'jose543@gmail.com', '27305229881', 'masculino', 'http://miphoto.com'),
+	('Juan Ignacio', 'Rojo Maldonado', 'jaunignacio@gmail.com', '57825158583', 'masculino', 'http://miperfil.com'),
+	('Julio Andres', 'Montoya Ruiz','juliomontoya@hotmail.com', '18552445549', 'masculino', 'http://.minhapicture.com' ),
+	('Karen Stephany', 'Gallardo Ochoa', 'karen@gmail.com', '93318874497', 'femenino', 'http://mifotokaren.com' ),
+	('Karliana', 'Ramirez', 'karliana@gmail.com', '79915676551', 'femenino', 'http://karli.com');
+    
+
+
+INSERT INTO postagem (id_usuario, titulo, descripcao)
+VALUES 
+	('1', 'Ferias em familia','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'),
+    ('1', 'Ferias com amigos','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'),
+    ('2', 'Na escola','It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout'),
+    ('3', 'No hospital','It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout'),
+    ('4', 'De paseio','There are many variations of passages of Lorem Ipsum available'),
+    ('5', 'Dirigindo na ciudade','There are many variations of passages of Lorem Ipsum available'),
+    ('5', 'Dirigindo na praia Canasvieira SC','There are many variations of passages of Lorem Ipsum available'),
+    ('6', 'Desenvolvendo um aplicativo','There are many variations of passages of Lorem Ipsum available'),
+    ('7', 'Desenvolvendo frontEnd','"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam'),
+	('8', 'Backend','"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam'),
+    ('9', 'Ux/Ui','"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam'),
+	('10', 'Foto','"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam'),
+	('11', 'Bd','"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam'),
+	('12', 'Desenvolvendo um site web','"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam'),
+	('13', 'trabalhando em Neon','"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam'),
+	('13', 'toti','"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam');
+
+
+INSERT INTO historia (id_usuario, descripcao, urifoto)
+VALUES 
+	('1', 'Ferias em familia','http://ferias.com'),
+    ('2', 'Na escola','http://escola.com'),
+    ('7', 'Desenvolvendo frontEnd','http://deselvolvedo.com'),
+	('8', 'Backend','http:/backend.com.br'),
+    ('9', 'Ux/Ui','http://naosei.com.br'),
+	('13', 'trabalhando em Neon','http://neon.com'),
+	('13', 'toti','http://totidiversidade.com.br');
+    
+INSERT INTO foto (id_usuario, id_postagem, id_album, urifoto)
+VALUES 
+	('1', '1', '1', 'http://ferias.com'),
+    ('2', '2', '2', 'http://escola.com'),
+    ('7', '12', '3', 'http://deselvolvedo.com'),
+	('8', '12', '4', 'http:/backend.com.br'),
+    ('8', '13', '3', 'http:/backend.com.br'),
+    ('9', '4', '2', 'http://naosei.com.br'),
+	('13', '6', '1', 'http://neon.com'),
+	('13', '9', '3', 'http://totidiversidade.com.br');
+
+INSERT INTO album (id_foto, titulo)
+VALUES 
+	('3','Desenvolvendo'),
+    ('7','Desenvolvendo'),
+    ('8','Desenvolvendo'),
+    ('2','Escola'),
+    ('1', 'Familia'),
+    ('5', 'Familia'),
+	('4', 'Viagem'),
+    ('6', 'Viagem');
+
+_____________________________________________________________________________________________________________________________________________________________
+
+SELECT * 
+FROM usuario 
+WHERE nome = 'Alejandro'
+
+SELECT * 
+FROM usuario 
+WHERE genero LIKE '%lino' 
+
+SELECT COUNT (*) 
+FROM usuario;
+
+SELECT genero, COUNT(*) AS "Quantidade_Generos"
+FROM usuario
+GROUP by genero
+
+
+SELECT p.descripcao, u.nome
+FROM postagem postagems, usuario u
+INNER JOIN postagem ON p.id_usuario = p.id_usuario
+group by p.descripcao;
+
+__________________________________________________________________________________________________________________________________________________________
